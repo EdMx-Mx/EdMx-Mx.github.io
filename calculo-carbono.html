@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f0f9f0;
+          color: #2f4f2f;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+      }
+  
+      #carbonForm {
+          background: #ffffff;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          padding: 20px 30px;
+          max-width: 400px;
+          width: 100%;
+          text-align: center;
+      }
+  
+      h1 {
+          font-size: 24px;
+          color: #2e7d32;
+          margin-bottom: 20px;
+      }
+  
+      h2 {
+          font-size: 18px;
+          color: #388e3c;
+          margin-top: 20px;
+          margin-bottom: 10px;
+          border-bottom: 2px solid #4caf50;
+          padding-bottom: 5px;
+      }
+  
+      label {
+          display: block;
+          font-weight: bold;
+          margin-bottom: 8px;
+          text-align: left;
+      }
+  
+      input[type="number"] {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 15px;
+          border: 1px solid #c8e6c9;
+          border-radius: 5px;
+          font-size: 16px;
+      }
+  
+      button {
+          background-color: #4caf50;
+          color: #ffffff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          width: 100%;
+      }
+  
+      button:hover {
+          background-color: #388e3c;
+      }
+  
+      button:active {
+          transform: scale(0.98);
+      }
+  </style>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Desarrollo Sustentable</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Righteous&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+</head>
+
+<body class="sub_page">
+  <div class="hero_area ">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="index.html">
+            <img src="images/logo.png" alt="" />
+          </a>
+          <div class="" id="">
+            <div class="User_option">
+              <form class="form-inline my-2  mb-3 mb-lg-0">
+                <input type="search" placeholder="Search" />
+                <button class="btn   my-sm-0 nav_search-btn" type="submit"></button>
+              </form>
+            </div>
+
+            <div class="custom_menu-btn">
+              <button onclick="openNav()">
+                <span class="s-1"> </span>
+                <span class="s-2"> </span>
+                <span class="s-3"> </span>
+              </button>
+            </div>
+            <div id="myNav" class="overlay">
+              <div class="overlay-content">
+                <a href="index.html">Inicio</a>
+                <a href="evaluar-proyecto.html">Evaluador de proyectos</a>
+                <a href="calculo-carbono.html">Calculadora de carbono </a>
+                <a href="recomendaciones.html">Recomendaciones</a>
+                <a href="biblioteca.html">Biblioteca de recursos</a>
+                <a href="noticias.html">Noticias</a>
+                <a href="blog.html">Blog</a>                
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+
+  </div>
+
+
+
+  <!-- contact section -->
+
+  <h1>Calculadora de Huella de Carbono</h1>
+    <form id="carbonForm">
+        <h2>1. Transporte</h2>
+        <label for="kmCar">Kilómetros recorridos en auto (mensual):</label>
+        <input type="number" id="kmCar" name="kmCar" placeholder="0" required><br>
+
+        <label for="fuelEfficiency">Eficiencia del vehículo (km/l):</label>
+        <input type="number" id="fuelEfficiency" name="fuelEfficiency" placeholder="15" required><br>
+
+        <h2>2. Energía</h2>
+        <label for="electricity">Consumo eléctrico mensual (kWh):</label>
+        <input type="number" id="electricity" name="electricity" placeholder="0" required><br>
+
+        <h2>3. Alimentación</h2>
+        <label for="meatConsumption">Porciones de carne consumidas por semana:</label>
+        <input type="number" id="meatConsumption" name="meatConsumption" placeholder="0" required><br>
+
+        <h2>4. Residuos</h2>
+        <label for="waste">Residuos generados por semana (kg):</label>
+        <input type="number" id="waste" name="waste" placeholder="0" required><br>
+
+        <button type="button" id="calculateBtn">Calcular Huella de Carbono</button>
+    </form>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', () => {
+            // Obtener valores del formulario
+            const kmCar = parseFloat(document.getElementById('kmCar').value) || 0;
+            const fuelEfficiency = parseFloat(document.getElementById('fuelEfficiency').value) || 1;
+            const electricity = parseFloat(document.getElementById('electricity').value) || 0;
+            const meatConsumption = parseFloat(document.getElementById('meatConsumption').value) || 0;
+            const waste = parseFloat(document.getElementById('waste').value) || 0;
+
+            // Factores de emisión
+            const emissionFactors = {
+                fuel: 2.31, // kg CO2 por litro de gasolina
+                electricity: 0.5, // kg CO2 por kWh (promedio global)
+                meat: 27, // kg CO2 por kg de carne
+                waste: 0.5 // kg CO2 por kg de residuos
+            };
+
+            // Cálculo de emisiones
+            const fuelEmissions = (kmCar / fuelEfficiency) * emissionFactors.fuel;
+            const electricityEmissions = electricity * emissionFactors.electricity;
+            const meatEmissions = (meatConsumption * 4) * emissionFactors.meat; // 4 semanas al mes
+            const wasteEmissions = (waste * 4) * emissionFactors.waste;
+
+            const totalEmissions = fuelEmissions + electricityEmissions + meatEmissions + wasteEmissions;
+
+            // Crear PDF con los resultados
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+
+            pdf.setFontSize(16);
+            pdf.text('Resultados de la Calculadora de Carbono', 10, 10);
+            pdf.setFontSize(12);
+            pdf.text(`Emisiones por transporte: ${fuelEmissions.toFixed(2)} kg CO₂`, 10, 20);
+            pdf.text(`Emisiones por electricidad: ${electricityEmissions.toFixed(2)} kg CO₂`, 10, 30);
+            pdf.text(`Emisiones por alimentación: ${meatEmissions.toFixed(2)} kg CO₂`, 10, 40);
+            pdf.text(`Emisiones por residuos: ${wasteEmissions.toFixed(2)} kg CO₂`, 10, 50);
+            pdf.text(`Total de emisiones: ${totalEmissions.toFixed(2)} kg CO₂`, 10, 60);
+
+            // Descargar el PDF
+            pdf.save('huella_carbono.pdf');
+        });
+    </script>
+
+  <!-- end contact section -->
+
+
+<!-- info section -->
+
+  
+<section class="info_section  layout_padding2">
+  <div class="footer_img fi1">
+    <img src="images/footer-animal1.png" alt="">
+  </div>
+  <div class="footer_img fi2">
+    <img src="images/footer-animal2.png" alt="">
+  </div>
+  <div class="container">
+    <div class="social_container">
+      <div class="social_box">
+        <a href="https://www.facebook.com">
+          <img src="images/fb.png" alt="">
+        </a>
+        <a href="https://www.x.com">
+          <img src="images/twitter.png" alt="">
+        </a>
+        <a href="https://www.linkedin.com">
+          <img src="images/linkedin.png" alt="">
+        </a>
+        <a href="https://www.instagram.com">
+          <img src="images/instagram.png" alt="">
+        </a>
+        <a href="https://www.youtube.com">
+          <img src="images/youtube.png" alt="">
+        </a>
+      </div>
+    </div>
+    <div class="contact_items">
+      <a href="">
+        <div class="item ">
+          <div class="img-box ">
+            <img src="images/location.png" alt="">
+          </div>
+          <div class="detail-box">
+            <p>
+              Ubicacion: Carretera a Vigia Chico Kilómetro 1.5, Centro, Felipe Carrillo Puerto
+            </p>
+          </div>
+        </div>
+      </a>
+      <a href="">
+        <div class="item ">
+          <div class="img-box ">
+            <img src="images/call.png" alt="">
+          </div>
+          <div class="detail-box">
+            <p>
+              Tel +52 983 111 7171
+            </p>
+          </div>
+        </div>
+      </a>
+      <a href="">
+        <div class="item ">
+          <div class="img-box ">
+            <img src="images/mail.png" alt="">
+          </div>
+          <div class="detail-box">
+            <p>
+              alanaban2003@gmail.com
+              willcamps097@gmail.com
+              sheylayam25@gmail.com
+              lalohdez1911@hotmail.com
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="info_container ">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-3 ">
+          <h6>
+            Sobre Nosotros
+          </h6>
+          <p>
+            Nos dedicamos a promover soluciones innovadoras para un desarrollo sustentable, 
+            equilibrando el progreso económico, social y ambiental. Trabajamos con pasión para 
+            reducir la huella ecológica, fomentar energías renovables y apoyar la economía 
+            circular.
+          </p>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <h6>
+            Otros Links
+          </h6>
+          <div class="info_link-box">
+            <ul>
+              <li class="active">
+                <a href="index.html">
+                  Inicio
+                </a>
+              </li>
+              <li>
+                <a href="nosotros.html">
+                  Nosotros
+                </a>
+              </li>
+              <li>
+                <a href="donar.html">
+                  Donar
+                </a>
+              </li>
+              <li>
+                <a href="contacto.html">
+                  Contáctanos
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 text-center">
+          <h6>
+            Sistema evaluador de proyectos
+          </h6>
+          <p>
+            Nuestro sistema evaluador de proyectos de desarrollo sustentable te permite 
+            analizar y calificar iniciativas según su impacto económico, ambiental y social. 
+            Proporciona una evaluación integral que facilita la toma de decisiones responsables 
+            y promueve el cumplimiento de objetivos sustentables.
+          </p>
+        </div>
+        <div class="col-md-6 col-lg-3 text-center">
+          <h6>
+            Calculadora de Carbono
+          </h6>
+          <p>
+            Nuestro sistema de evaluación de huella de carbono calcula las emisiones generadas 
+            por tus actividades o proyectos, ayudándote a identificar áreas de mejora para 
+            reducir tu impacto ambiental. Promovemos acciones concretas hacia un futuro más limpio 
+            y sostenible.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- end info section -->
+
+
+<!-- footer section -->
+<section class="container-fluid footer_section ">
+  <p>
+    &copy; <span id="displayDate"></span> Diseñado por
+    <a href="#">TecNM Desarrollo Sustentable  </a>
+  </p>
+</section>
+<!-- end  footer section -->
+
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<!-- Google Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+<!-- End Google Map -->
+
+
+</body>
+
+</html>

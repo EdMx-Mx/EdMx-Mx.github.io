@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <title>Desarrollo Sustentable</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Righteous&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    form {
+        max-width: 600px;
+        margin: auto;
+    }
+    label {
+        font-weight: bold;
+    }
+    input, textarea, button {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+        font-size: 14px;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+
+<body class="sub_page">
+  <div class="hero_area ">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="index.html">
+            <img src="images/logo.png" alt="" />
+          </a>
+          <div class="" id="">
+            <div class="User_option">
+              <form class="form-inline my-2  mb-3 mb-lg-0">
+                <input type="search" placeholder="Search" />
+                <button class="btn   my-sm-0 nav_search-btn" type="submit"></button>
+              </form>
+            </div>
+
+            <div class="custom_menu-btn">
+              <button onclick="openNav()">
+                <span class="s-1"> </span>
+                <span class="s-2"> </span>
+                <span class="s-3"> </span>
+              </button>
+            </div>
+            <div id="myNav" class="overlay">
+              <div class="overlay-content">
+                <a href="index.html">Inicio</a>
+                <a href="evaluar-proyecto.html">Evaluador de proyectos</a>
+                <a href="calculo-carbono.html">Calculadora de carbono </a>
+                <a href="recomendaciones.html">Recomendaciones</a>
+                <a href="biblioteca.html">Biblioteca de recursos</a>
+                <a href="noticias.html">Noticias</a>
+                <a href="blog.html">Blog</a>                
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+
+  </div>
+
+
+
+  <!-- contact section -->
+
+  <h1>Evaluador de Proyectos Sustentables</h1>
+    <form id="formProyecto">
+        <h2>Información General del Proyecto</h2>
+        <label>Nombre del proyecto</label>
+        <input type="text" id="nombreProyecto" required>
+        <label>Sector o industria</label>
+        <input type="text" id="sectorIndustria" required>
+        <label>Objetivo</label>
+        <textarea id="objetivo" rows="3" required></textarea>
+        <label>Duración estimada</label>
+        <input type="text" id="duracion" required>
+        <label>Ubicación geográfica</label>
+        <input type="text" id="ubicacion" required>
+
+        <h2>Impacto Económico</h2>
+        <label>Presupuesto inicial</label>
+        <input type="text" id="presupuestoInicial" required>
+        <label>Proyección de ingresos y gastos</label>
+        <textarea id="proyeccionIngresos" rows="3" required></textarea>
+        <label>Aportación al desarrollo económico local</label>
+        <textarea id="aportacionEconomica" rows="3" required></textarea>
+        <label>Eficiencia de recursos</label>
+        <textarea id="eficienciaRecursos" rows="3" required></textarea>
+
+        <h2>Impacto Ambiental</h2>
+        <label>Uso de recursos naturales</label>
+        <textarea id="usoRecursos" rows="3" required></textarea>
+        <label>Gestión de residuos</label>
+        <textarea id="gestionResiduos" rows="3" required></textarea>
+        <label>Emisiones de carbono</label>
+        <textarea id="emisionesCarbono" rows="3" required></textarea>
+        <label>Uso de energía renovable</label>
+        <textarea id="energiaRenovable" rows="3" required></textarea>
+
+        <h2>Impacto Social</h2>
+        <label>Inclusión Social</label>
+        <textarea id="inclusionSocial" rows="3" required></textarea>
+        <label>Salud y Seguridad</label>
+        <textarea id="saludSeguridad" rows="3" required></textarea>
+        <label>Participación comunitaria</label>
+        <textarea id="participacionComunitaria" rows="3" required></textarea>
+
+        <h2>Viabilidad del Proyecto Sustentable</h2>
+        <label>Indicadores de medición</label>
+        <textarea id="indicadoresMedicion" rows="3" required></textarea>
+        <label>Plazos de implementación</label>
+        <textarea id="plazosImplementacion" rows="3" required></textarea>
+        <label>Alianzas estratégicas</label>
+        <textarea id="alianzasEstrategicas" rows="3" required></textarea>
+
+        <h2>Innovación y Adaptabilidad</h2>
+        <label>Innovaciones tecnológicas</label>
+        <textarea id="innovaciones" rows="3" required></textarea>
+        <label>Estrategias de adaptación</label>
+        <textarea id="estrategiasAdaptacion" rows="3" required></textarea>
+
+        <button type="button" onclick="generarPDF()">Generar PDF</button>
+    </form>
+
+    <script>
+        function generarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(14);
+            doc.text("Evaluación de Proyecto Sustentable", 10, 10);
+
+            let y = 20;
+
+            function agregarSeccion(titulo, contenido) {
+                doc.setFontSize(12);
+                doc.setFont("Helvetica", "bold");
+                doc.text(titulo, 10, y);
+                y += 7;
+
+                doc.setFont("Helvetica", "normal");
+                contenido.forEach((linea) => {
+                    doc.text(`- ${linea}`, 10, y);
+                    y += 7;
+                });
+                y += 5;
+            }
+
+            const datosProyecto = {
+                nombreProyecto: document.getElementById("nombreProyecto").value,
+                sectorIndustria: document.getElementById("sectorIndustria").value,
+                objetivo: document.getElementById("objetivo").value,
+                duracion: document.getElementById("duracion").value,
+                ubicacion: document.getElementById("ubicacion").value,
+                presupuestoInicial: document.getElementById("presupuestoInicial").value,
+                proyeccionIngresos: document.getElementById("proyeccionIngresos").value,
+                aportacionEconomica: document.getElementById("aportacionEconomica").value,
+                eficienciaRecursos: document.getElementById("eficienciaRecursos").value,
+                usoRecursos: document.getElementById("usoRecursos").value,
+                gestionResiduos: document.getElementById("gestionResiduos").value,
+                emisionesCarbono: document.getElementById("emisionesCarbono").value,
+                energiaRenovable: document.getElementById("energiaRenovable").value,
+                inclusionSocial: document.getElementById("inclusionSocial").value,
+                saludSeguridad: document.getElementById("saludSeguridad").value,
+                participacionComunitaria: document.getElementById("participacionComunitaria").value,
+                indicadoresMedicion: document.getElementById("indicadoresMedicion").value,
+                plazosImplementacion: document.getElementById("plazosImplementacion").value,
+                alianzasEstrategicas: document.getElementById("alianzasEstrategicas").value,
+                innovaciones: document.getElementById("innovaciones").value,
+                estrategiasAdaptacion: document.getElementById("estrategiasAdaptacion").value,
+            };
+
+            agregarSeccion("Información General del Proyecto", [
+                `Nombre del proyecto: ${datosProyecto.nombreProyecto}`,
+                `Sector o industria: ${datosProyecto.sectorIndustria}`,
+                `Objetivo: ${datosProyecto.objetivo}`,
+                `Duración estimada: ${datosProyecto.duracion}`,
+                `Ubicación geográfica: ${datosProyecto.ubicacion}`,
+            ]);
+
+            agregarSeccion("Impacto Económico", [
+                `Presupuesto inicial: ${datosProyecto.presupuestoInicial}`,
+                `Proyección de ingresos y gastos: ${datosProyecto.proyeccionIngresos}`,
+                `Aportación al desarrollo económico local: ${datosProyecto.aportacionEconomica}`,
+                `Eficiencia de recursos: ${datosProyecto.eficienciaRecursos}`,
+            ]);
+
+            agregarSeccion("Impacto Ambiental", [
+                `Uso de recursos naturales: ${datosProyecto.usoRecursos}`,
+                `Gestión de residuos: ${datosProyecto.gestionResiduos}`,
+                `Emisiones de carbono: ${datosProyecto.emisionesCarbono}`,
+                `Uso de energía renovable: ${datosProyecto.energiaRenovable}`,
+            ]);
+
+            agregarSeccion("Impacto Social", [
+                `Inclusión social: ${datosProyecto.inclusionSocial}`,
+                `Salud y seguridad: ${datosProyecto.saludSeguridad}`,
+                `Participación comunitaria: ${datosProyecto.participacionComunitaria}`,
+            ]);
+
+            agregarSeccion("Viabilidad del Proyecto Sustentable", [
+                `Indicadores de medición: ${datosProyecto.indicadoresMedicion}`,
+                `Plazos de implementación: ${datosProyecto.plazosImplementacion}`,
+                `Alianzas estratégicas: ${datosProyecto.alianzasEstrategicas}`,
+            ]);
+
+            agregarSeccion("Innovación y Adaptabilidad", [
+                `Innovaciones tecnológicas: ${datosProyecto.innovaciones}`,
+                `Estrategias de adaptación: ${datosProyecto.estrategiasAdaptacion}`,
+            ]);
+
+            doc.save("Evaluacion_Proyecto_Sustentable.pdf");
+        }
+    </script>
+
+  <!-- end contact section -->
+
+
+  <!-- info section -->
+
+  
+  <section class="info_section  layout_padding2">
+    <div class="footer_img fi1">
+      <img src="images/footer-animal1.png" alt="">
+    </div>
+    <div class="footer_img fi2">
+      <img src="images/footer-animal2.png" alt="">
+    </div>
+    <div class="container">
+      <div class="social_container">
+        <div class="social_box">
+          <a href="https://www.facebook.com">
+            <img src="images/fb.png" alt="">
+          </a>
+          <a href="https://www.x.com">
+            <img src="images/twitter.png" alt="">
+          </a>
+          <a href="https://www.linkedin.com">
+            <img src="images/linkedin.png" alt="">
+          </a>
+          <a href="https://www.instagram.com">
+            <img src="images/instagram.png" alt="">
+          </a>
+          <a href="https://www.youtube.com">
+            <img src="images/youtube.png" alt="">
+          </a>
+        </div>
+      </div>
+      <div class="contact_items">
+        <a href="">
+          <div class="item ">
+            <div class="img-box ">
+              <img src="images/location.png" alt="">
+            </div>
+            <div class="detail-box">
+              <p>
+                Ubicacion: Carretera a Vigia Chico Kilómetro 1.5, Centro, Felipe Carrillo Puerto
+              </p>
+            </div>
+          </div>
+        </a>
+        <a href="">
+          <div class="item ">
+            <div class="img-box ">
+              <img src="images/call.png" alt="">
+            </div>
+            <div class="detail-box">
+              <p>
+                Tel +52 983 111 7171
+              </p>
+            </div>
+          </div>
+        </a>
+        <a href="">
+          <div class="item ">
+            <div class="img-box ">
+              <img src="images/mail.png" alt="">
+            </div>
+            <div class="detail-box">
+              <p>
+                alanaban2003@gmail.com
+                willcamps097@gmail.com
+                sheylayam25@gmail.com
+                lalohdez1911@hotmail.com
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="info_container ">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-3 ">
+            <h6>
+              Sobre Nosotros
+            </h6>
+            <p>
+              Nos dedicamos a promover soluciones innovadoras para un desarrollo sustentable, 
+              equilibrando el progreso económico, social y ambiental. Trabajamos con pasión para 
+              reducir la huella ecológica, fomentar energías renovables y apoyar la economía 
+              circular.
+            </p>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h6>
+              Otros Links
+            </h6>
+            <div class="info_link-box">
+              <ul>
+                <li class="active">
+                  <a href="index.html">
+                    Inicio
+                  </a>
+                </li>
+                <li>
+                  <a href="nosotros.html">
+                    Nosotros
+                  </a>
+                </li>
+                <li>
+                  <a href="donar.html">
+                    Donar
+                  </a>
+                </li>
+                <li>
+                  <a href="contacto.html">
+                    Contáctanos
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3 text-center">
+            <h6>
+              Sistema evaluador de proyectos
+            </h6>
+            <p>
+              Nuestro sistema evaluador de proyectos de desarrollo sustentable te permite 
+              analizar y calificar iniciativas según su impacto económico, ambiental y social. 
+              Proporciona una evaluación integral que facilita la toma de decisiones responsables 
+              y promueve el cumplimiento de objetivos sustentables.
+            </p>
+          </div>
+          <div class="col-md-6 col-lg-3 text-center">
+            <h6>
+              Calculadora de Carbono
+            </h6>
+            <p>
+              Nuestro sistema de evaluación de huella de carbono calcula las emisiones generadas 
+              por tus actividades o proyectos, ayudándote a identificar áreas de mejora para 
+              reducir tu impacto ambiental. Promovemos acciones concretas hacia un futuro más limpio 
+              y sostenible.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end info section -->
+
+
+  <!-- footer section -->
+  <section class="container-fluid footer_section ">
+    <p>
+      &copy; <span id="displayDate"></span> Diseñado por
+      <a href="#">TecNM Desarrollo Sustentable  </a>
+    </p>
+  </section>
+  <!-- end  footer section -->
+
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="js/custom.js"></script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+  <!-- End Google Map -->
+
+
+</body>
+
+</html>
